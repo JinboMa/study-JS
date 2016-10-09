@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		div{
+			height: 50px;
+			width: 50px;
+			background-color:black; 
+			color: white;
+			float: left ;
+			margin-left: 50px;
+			text-align: center;
+			line-height: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div id="Ashe">艾希</div>
+	<div id="Tryndamere">蛮王</div>
+	<div id="Yi">剑圣</div>
+	<script>
+		//声明对象
+		//方法1,其构造函数为Object
+		var obj1 = {};
+		//方法2,其构造函数为Object
+		var obj2 = new Object({});//实例化，拷贝
+		//方法3,其构造函数为函数体
+		var Class1 = function A(){};
+		var obj3 = new Class1(); //实例化，拷贝
+		//方法4,其构造函数为Class
+		function Class(){}; // 构造函数
+		var obj4 = new Class(); //实例化，拷贝
+		console.log(obj1,obj2,obj3,obj4);
+		console.log("*****************对象属性*********************");
+
+		obj1.name = "Obj1";
+		console.log(obj1,obj1.name);
+		obj1.id = 1;
+		console.log(obj1,obj1.id);
+		obj1.code = function(time){
+			console.log("I can code "+time+"!");
+			return time;
+		};
+		console.log(obj1,obj1.code);
+		console.log(obj1.code("7 days"));
+		obj1.name = "object1";
+		console.log(obj1);
+
+		var water = {
+			name : "农夫山泉",
+			id : 1,
+			color : "none",
+			taste : "a little sweet",
+			price : "2元",
+			elements : ["Oxygen","Hydrogen"],
+			speak : function(){
+			console.log("我是一瓶"+this.name+",我的价格是"+this.price+",我的味道是"+this.taste+",我的颜色是"+this.color+"。");
+			return this.id;
+		}
+		};
+		console.log(water);
+		console.log(water.speak());
+		//对象中的属性可以互相访问，但是前面的对象不能访问后面的对象的属性，前面的函数可以调用后面的属性
+		var temp = 0;
+		var Yi = {
+			name : "Yi",
+			game : "LOL",
+			sex : 1,
+			strength : 65,
+			blood : 100,
+			skill : ["q","w","e","r"],
+			attack : function(role){
+				if(role==Tryndamere)role.skillR();
+				role.blood -= this.strength;
+				console.log(role.name,role.blood);
+			}
+		}
+		var Ashe = {
+			name : "Ashe",
+			game : "LOL",
+			sex : 0,
+			strength : 70,
+			blood : 100,
+			skill : ["q","w","e","r"],
+			attack : function(role){
+				role.blood -= this.strength;
+				if(role==Tryndamere)role.skillR();
+				console.log(role.name,role.blood);
+			}
+		}
+		var Tryndamere = {
+			name : "Tryndamere",
+			game : "LOL",
+			sex : 1,
+			strength : 75,
+			blood : 100,
+			skill : ["q","w","e","r"],
+			attack : function(role){
+				role.blood -= this.strength;
+				console.log(role.name,role.blood);
+			},
+			skillR : function(){
+				if(Tryndamere.blood <= 0){
+					console.log("开启大招");
+					Tryndamere.blood = 1;
+					setTimeout(function(){
+				clearTimeout(Tryndamere.skillR);
+				console.log("大招结束");
+			},5000);
+				}
+				
+		}
+		}
+		var oDiv1 = document.getElementById("Ashe");
+		var oDiv2 = document.getElementById("Yi");
+		var oDiv3 = document.getElementById("Tryndamere");
+		oDiv3.onclick = function(){Ashe.attack(Tryndamere);};
+		oDiv2.onclick = function(){Ashe.attack(Yi);};
+		oDiv1.onclick = function(){Ashe.attack(Ashe);};
+		// Ashe.attack(Tryndamere);
+		// Ashe.attack(Tryndamere);
+		console.log("*****************对象属性用法2*********************");
+		//对象属性用法2
+		var obj5 = {
+			"a-3" : [1,3,{
+				a : "asfsaf"
+			}],
+			s : 3,
+			d : "adsw",
+			f : {
+				d : ["aaa"]
+			}
+		};
+		console.log(obj5);
+		console.log(obj5["a-3"][2].a,obj5["a-3"][2]["a"]);
+		var test = [
+		{
+			"asdf5" :{
+				c : function(){
+					console.log(666);
+				}
+			}
+		}
+		];
+		test[0]["asdf5"].c();
+
+
+		//for in 方法，查看对象属性名与属性值
+		for(var i in obj5){
+			console.log(i,obj5[i]);
+		}
+
+		//！！！！拒绝使用for in遍历数组(数组属性也会遍历出来)
+		var arr = [2,3,0,1,5];
+		arr.a = 123;
+		arr["dgsgsd"] = 233;
+		for(var i in arr){
+			console.log(i,arr[i]);
+		}
+
+		//JSON,数组内部对象拥有同样的属性名
+		//对象形式的JSON
+		var oJson = [
+			{
+				a : 1,
+				b : 2,
+				c : [1,2,3]
+			},
+			{
+				a : "asf",
+				b : "123",
+				c : {
+					a : "123",
+					b : 122222,
+					c : [1,2,3]
+				}
+			},
+			{
+				a : 1,
+				b : true,
+				c : 3
+			}
+		];
+		//字符串形式的JSON
+		var sJson = '[{"a":1,"b":2,"c":3},{"a":"asf","b":"123","c":3},{"a":1,"b":true,"c":3}]';
+		console.log(oJson);
+		console.log(sJson);
+
+		//JSON方法
+		//将对象形式的JSON转换为字符串形式的JSON
+		console.log(JSON.stringify(oJson));
+
+		//将字符串形式的JSON转换为对象形式的JSON
+		console.log(JSON.parse(sJson));
+
+		//JSON.stringify原理
+		// console.log("***************JSON.stringify原理1******************");
+		// function stringify(origin){
+		// 	var result = "",
+		// 	i = 0,
+		// 	len = origin.length;
+		// 	for(;i<len;i++){
+		// 		result += ",{";
+		// 		for(var j in origin[i]){
+		// 				result += ",\"" + j + "\":" ;
+		// 				if(origin[i][j] instanceof Array){
+		// 					result += "[";
+		// 				}
+		// 				if(typeof origin[i][j] === "string")result += "\"";
+		// 				result += origin[i][j];
+		// 				if(typeof origin[i][j] === "string")result += "\"";
+		// 				if(origin[i][j] instanceof Array){
+		// 					result += "]";
+		// 				}
+		// 			}
+		// 		result += "}";
+		// 		if(origin[i] instanceof Array)result += "]";
+		// 	}
+		// 	result = "[" + result.slice(1).replace(/{,/g,"{") + "]";
+		// 	return result;
+		// }
+		// console.log(stringify(oJson));
+		//所有数据类型转字符串，可用在ie浏览器对对象式JSON的stringify上
+		console.log("***************JSON.stringify原理1******************");
+		function stringify(origin){
+			var result = "";
+			var i;
+			if(typeof origin === "number"){
+				result = origin;
+			}else if(typeof origin === "string"){
+				result = "\"" + origin + "\"";
+			}else if(origin instanceof Array){
+				length = origin.length;
+				for(i=0;i<length;i++){
+					result += "," + stringify(origin[i]);
+				}
+				result = "[" + result.slice(1) + "]";
+			}else if(typeof origin === "object"){
+					for(i in origin){
+					result += ",\"" + i + "\":" + stringify(origin[i]);
+				}
+				result = "{" + result.slice(1) + "}" ;
+			}else if(typeof origin === "function" || !isFinite(origin)){
+				result = "\"" + origin.toString() + "\"";
+			}else {
+				result = origin;
+			}
+			return result;
+		}
+		console.log(stringify(oJson));
+		console.log("***************JSON.parse原理1******************");
+		function parse(origin){
+			var result;
+			var i;
+			var length;
+			try{
+				result = eval("(" + origin + ")");
+			}catch(e){
+				result = origin;
+			}
+			if(result instanceof Array){
+				length = result.length;
+				for(i=0;i<length;i++){
+					result[i] = parse(result[i]);
+				}
+			}else if(typeof result === "object"){
+				for(i in result){
+					result[i] = parse(result[i]);
+				}
+			}
+			return result;
+		}
+		console.log(parse("[[1,2],{a :\"[1,2,3]\"}]"));
+
+		var obj7 = {
+			0 : "a",
+			1 : "b",
+			2 : "c",
+			3 : "d",
+			length : 4
+		};
+		console.log(obj7);
+		console.log(document.styleSheets);
+		console.log(document.body.childNodes);
+
+		var arr = [1,2,3];
+		arr.a = 666;
+		arr.b = function(){
+			console.log(arr.a);
+		};
+		arr.b();
+
+		function func(){};
+		func.a = 233;
+		func.b = function(){
+			console.log(func.a);
+		}
+		func.b();
+
+
+		//arguments
+		function x(){
+			console.log(arguments[0][1]);//获取调用当前方法时传的参数
+			console.log(arguments.callee);//获取调用并传参数的方法
+			console.log(arguments.callee.caller);//获取当前方法被何方法调用
+			console.log(x.caller);//获取当前方法被何方法调用
+		}
+		function y(){
+			x([1,"asdf"]);
+		}
+		var z = function s(){
+			x([3,2]);
+		}
+		y();
+		z();
+
+		var a = function(x,y){
+			y[arguments[0]]=x;
+			return y;
+		}
+		console.log(a(1,{b : "sfsa"}));
+		console.log("*****************下午*******************");
+		//函数声明，函数表达式
+		//调用方法的()所调用的是一个返回值为方法的语法体
+		//函数自行调用（自执行函数）
+		var o = function(){
+			return 233;
+		}();
+		console.log(o);
+
+		//自执行方法二
+		(function(){
+			console.log(23);
+		})();
+
+
+		console.log(eval("(" + "{a : 2}"+ ")"));
+	</script>
+</body>
+</html>

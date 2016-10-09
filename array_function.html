@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script>
+		//数组方法
+		var arr = [];
+		var arr = new Array();
+		//查找某一位
+		console.log(arr[0]);//undefined
+		arr = [1,2,3];
+		console.log(arr[0]);//1
+		arr = [1,,1];
+		console.log(arr);//[1,undefined,1]
+
+		//长度
+		console.log(arr.length);
+		arr.length = arr.length - 1;
+		console.log(arr.length);
+
+		//查找某一值在数组的哪一位
+		console.log(arr.indexOf(1));//如果indexOf无参数或参数为undefined，则相当于查找不到，返回-1，根据参数能被找到，则返回对应下标
+		arr = [1,2,3,2,1];
+		console.log(arr.indexOf(2));//返回第一个被查到的下标
+		console.log(arr.lastIndexOf(2));//返回最后一个被查到的下标
+
+		//在数组后新增一位,原数组被改变
+		arr.push(6);
+		console.log(arr);
+
+		//数组拼接，原数组不发生改变
+		console.log(arr.concat([1,233]));
+		console.log(arr);
+
+		//删掉数组最后一位，返回被删掉的那一位，改变原数组
+		console.log(arr.pop());
+		console.log(arr);
+		//删掉数组第一位，返回被删掉的那一位，改变原数组
+		console.log(arr.shift());
+		console.log(arr);
+		//修改数组arr.splice(a,b,c)，a为起始下标,从a起，被修改的数组长度为b,c为添加的内容
+		console.log(arr.splice(1,2,4,5,6));//返回被修改的数组集合[3, 2]
+		console.log(arr);//数组被改为[2, 4, 5, 6, 1]
+		console.log(arr.length);
+
+		var article = [
+		"<div class=\"article\">"
+		+"<h1>第一篇</h1>" 
+		+ "<p>这是一个段落</p>" 
+		+ "<p>这是一个段落</p>"
+		+ "</div>",
+		"<div class=\"article\">"
+		+"<h1>第二篇</h1>" 
+		+ "<p>这是一个段落</p>" 
+		+ "<p>这是一个段落</p>"
+		+ "</div>",
+		"<div class=\"article\">"
+		+"<h1>第三篇</h1>" 
+		+ "<p>这是一个段落</p>" 
+		+ "<p>这是一个段落</p>"
+		+ "</div>"
+		];
+		console.log("********原文章********");
+		document.write(article);
+		function add(){
+			//新增文章
+		article.splice(article.length,0,
+		"<div class=\"article\">"
+		+"<h1>这是新增的文章</h1>" 
+		+ "<p>这是一个段落</p>" 
+		+ "<p>这是一个段落</p>"
+		+ "</div>");
+		console.log("********新增之后文章********");
+		console.log(article);
+		}
+		function del(){
+			//删除一篇文章
+		article.splice(2,1);
+		console.log("********删除第三篇文章********");
+		console.log(article);
+		}
+		function dels(){
+			//删除多篇文章
+		article.splice(1,2);
+		console.log("********删除第二，第四篇文章********");
+		console.log(article);
+		}
+		function change(){
+			//改变一篇文章
+		article.splice(0,1,
+		"<div class=\"article\">"
+		+"<h1>改掉第一篇</h1>" 
+		+ "<p>这是一个段落</p>" 
+		+ "<p>这是一个段落</p>"
+		+ "</div>");
+		console.log("********修改第一篇文章********");
+		console.log(article);
+		}
+
+		//遍历数组
+		var arr = [2,3,3,6,6,6];
+		var len = arr.length;
+		for(var i=0;i<len;i++){
+			console.log(arr[i]);
+		}
+
+		//forEach遍历,返回一个值
+		arr.forEach(function(list,index,arr){
+			console.log(list,index,arr);
+		});
+		var arr1 = [5,2,8,6,4,23,2,5];
+		arr1.forEach(function(list,index){
+			console.log(Math.pow(list-index,2));
+		});
+
+		//自建forEach
+		function forEach(arr,callback){
+			for(var i=0;i<arr.length;i++){
+				callback(arr[i],i,arr);
+			}
+		}
+
+		//测试自建
+		var arr = [1,2,3,4,5,6,7,8];
+		forEach(arr,hanshu);
+		arr.forEach(function(list,index,arr){
+			console.log("<a href=\""+index+"\">"+list+"</a>",arr);
+		});
+
+		function hanshu(list,index,arr){
+			// console.log(list,index,arr);
+			return list;
+		}
+		//map遍历,返回一个数组
+		arr.map(hanshu);
+		console.log(arr.map(hanshu));
+		console.log("*****************************");
+		//数组map原理(不完全版)
+		function _map(arr,callback){
+			// console.log(arr,callback);
+			var _arr=[];
+			for(var i=0;i<arr.length;i++){
+				_arr.push(callback(arr[i],i,arr));
+			}
+			return _arr;
+		}
+		//filter筛选，返回只为处理后的数组
+		console.log(arr.filter(function(list,index,arr){
+			return list > 3;
+		}));
+		// 数组filter原理(不完全版)
+		function _filter(arr,callback){
+			var _arr = [];
+			for(var i=0;i<arr.length;i++){
+				if(callback(arr[i],i,arr))
+					_arr.push(arr[i]);
+			}
+			return _arr;
+		}
+		console.log(_filter(arr,function(list,index,arr){
+			return list > 3;
+		}));
+
+		//find查找，返回值为查找到的元素
+		console.log(arr.find(function(list,index,arr){
+			return index >3;
+		}));
+
+		// 数组find原理(不完全版)
+		function _find(arr,callback){
+			for(var i=0;i<arr.length;i++){
+				if(callback(arr[i],i,arr))return arr[i];
+			}
+		}
+		console.log(_find(arr,function(list,index,arr){
+			return index > 3;
+		}));
+
+		// findIndex查找下标，返回值为首个查找到的元素的下标，如果查找不到，返回-1
+		console.log(arr.findIndex(function(list,index,arr){
+			return list === 10;
+		}));
+		// 数组findIndex原理(不完全版)
+		function _findIndex(arr,callback){
+			for(var i=0;i<arr.length;i++){
+				if(callback(arr[i],i,arr))return i;
+			}
+			return -1;
+		}
+		console.log(_findIndex(arr,function(list,index,arr){
+			return list === 10;
+		}));
+	</script>
+</body>
+</html>

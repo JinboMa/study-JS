@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script>
+		//数字方法
+		var num = 666;
+		//转为字符串
+		console.log(num.toString());
+		//转数字
+		console.log(parseInt("asfasgaggsdg"));//NaN
+		console.log(parseInt("rwda_98346594087"));//NaN
+		console.log(parseInt("12215215136"));//12215215136
+		console.log(parseInt("0000435634000"));//435634000
+		console.log(parseInt("04842920030akjf4576347"));//4842920030
+		//转小数
+		console.log(parseFloat("124.3523.46546"));//124.3523
+		console.log(parseFloat("124.4676dhhdfhf"));//124.4676
+		console.log(parseFloat("124.000000"));//124
+		//改变为数字
+		console.log("12541" + 0); //125410   这是字符串
+		console.log("12541" - 0); //12541
+		console.log("124124dsdg" - 0); //NaN
+		console.log("1244512" * 1); //1244512
+		console.log("1244512" / 1); //1244512
+		console.log(+"46262246.00");//46262246
+		console.log(+"1235116163.123");//1235116163.123
+		console.log(+"3251dfgdf313");//NaN
+		//数学处理
+		console.log(Math.E);//自然常数E
+		console.log(Math.PI);//PI
+		console.log(Math.max(5,2));//返回更大值
+		console.log(Math.min(5,2));//返回更小值
+		console.log(Math.pow(2,10));//幂运算
+		console.log(Math.sqrt(2));//开方
+		console.log(Math.floor(2.7));//保留整数
+		console.log(Math.ceil(2.1));//大于2.1的第一个整数
+		console.log(Math.round(2.4));//四舍五入
+		console.log(Math.random());//[0,1)的随机小数
+		console.log(Math.floor(30 + Math.random() * 40));//[30,70)的随机整数
+		console.log(Math.floor(0 + Math.random() * 35));//[0,35)的随机整数
+		console.log(Math.floor(50 + Math.random() * 10));//[50,60)的随机整数
+		console.log(Math.floor(-3 + Math.random() * 8));//[-3,5)的随机整数
+	</script>
+</body>
+</html>

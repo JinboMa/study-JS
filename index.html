@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+</head>
+<body>
+	<script>
+		// var e = 3;
+		// var f = 'test';
+		// var arr = [1,2,3,4,5,6,7,8,9];
+		// var len = arr.length;
+		// 例一
+		// for(;e < 10;console.log(f),e++){
+		// 	console.log(e);
+		// }
+		// 例二
+		// for(var i=0;i<len;i++){
+		// 	console.log(arr[i]);
+		// }
+		// for(;arr.length < 15;){
+		// 	arr[arr.length] = 0;
+		// 	console.log(arr);
+		// }
+		// while(arr.length < 15){
+		// 	arr[arr.length] = 0;
+		// 	console.log(arr);
+		// }
+	</script>
+	<script>
+		// a(undefined,2);
+		// function a(p,q){
+		// 	console.log(123);
+		// 	console.log(p,q);
+		// }
+		// var b = function(){
+		// 	console.log(321);
+		// };
+		// var c = 0;
+		// function b(){
+		// 	c = 1;
+		// 	console.log(c);
+		// 	var c = 2;
+		// 	console.log(c);
+		// }
+		// console.log(c);
+		// b();
+		// console.log(c);
+	</script>
+	<script>
+		// var优先级最高
+		// a();
+		// console.log(a);
+		// a = undefined , b = undefined , c = undefined ;
+		// function a(){a=2;};
+		// console.log(a);
+	</script>
+	<script>
+		// var b;
+		// var a = function b(){
+		// 	b = 1 ;
+		// 	console.log(b);
+		// }
+		// a();
+		// console.log(b);
+		// function b(){
+		// 	var c = 0 ; 
+		// 	if(c<2)b();
+		// 	console.log(c);
+		// 	c++;
+		// }
+		// b();
+		// function c(){
+		// 	a = 1;
+		// 	return function(){
+		// 		return a++;
+		// 	}
+		// }
+		// var d = c();
+		// console.log(d);
+		// d();
+		// d();
+		// d = c();
+		// console.log(d());
+		// 人对象
+		// function Person(name,age){
+		// 	var sex = "男" ,
+		// 	 _age = age || 10;
+		// 	return function(_sex){
+		// 		console.log(name + "的性别是" + (_sex || sex) + ',年龄是' + _age + '岁.');
+		// 		console.log(name + '正在生成');
+		// 	}
+		// }
+		// // wuhao
+		// var xiaoming = Person('小明');
+		// xiaoming('女');
+		// // ma
+		// var ming = Person('小铭',20);
+		// ming();
+	</script>
+	<script>
+		// a = function a(){
+		// 	a = 123;
+		// 	return a;
+		// }
+		// console.log(a()());
+	</script>
+</body>
+</html>

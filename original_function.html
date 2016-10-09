@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+</head>
+<body>
+	<script>
+		var str = 'string';
+		function a(){
+			return 2;
+		}
+		// 字符串相加
+		console.log(str + 1,str +'str',str + 1 + 2,"'\"'"+str+"''\"");
+		console.log('"\'"'+str+'"\'"');
+		//字符串的增加
+		console.log(str.concat(123));
+		console.log(str);
+		// 字符串单个截取
+		console.log(str[2]);
+		console.log(str.charAt(2));
+		// 字符串截取[a,b)
+		console.log(str.substring(2,5));//[2,5)
+		console.log(str.substring(0,4));//[0,4)
+		console.log(str.substring(2,0));//[0,2)
+		console.log(str.substring(2,2));//[2,2),没有
+		console.log(str.substring(3));//[3,length)
+		console.log(str.substring(3,99));//[3,length)
+		console.log(str.substring());//[0,length)
+		console.log(str.substring(-2,3));//[0,3)
+		console.log(str.substring(-2,3.7));//[0,3)
+		console.log(str.substring(undefined,5));//[0,5)
+		console.log(str.substring(a,5));//[0,5)
+		console.log(str.substring(a(),5));//[2,5)
+		console.log(str.substring(1,3,5));//[1,3)
+
+		//截取2
+		console.log(str.slice(1,2));//同substring
+		console.log(str.slice(-1));//从反方向截取,不会自动转换
+		console.log(str.slice(-2,-1));//从倒数第二到倒数第一
+
+
+		//修改字符串
+		str = 66666;
+		console.log(str);
+		str = '66666';
+		console.log(str);
+		str[3] = '1';//无效
+		console.log(str);
+		// 字符串长度
+		console.log(str.length);
+		// 替换
+		console.log(str.replace('6','1'));
+		// 以上不能修改字符串
+		console.log(str);
+		//修改需要以下方式
+		str = str.replace('6','1');
+		console.log(str);
+		console.log(str.replace(/6/g,'1'));
+		//console.log(str);
+		function replaceAll(str,replaced,replaceTo){
+		var len = str.length;
+		for(var i = 0;i<len;i++){
+			str = str.replace(replaced,replaceTo);
+		}
+		return str;
+		}
+		console.log(replaceAll(replaceAll('2222222dgvs111','2','xy'),'11','8'));
+
+
+		//正则替换
+		console.log(str);
+		console.log(str.replace(/6/g,3));
+
+		// 分割
+		var str = 'hello javascript';
+		console.log(str.split('l'));//["he", "", "o javascript"]
+		console.log(str.split());//["hello javascript"]
+
+		function split(str,splitBy){
+			var arr = [];
+			var i = 0;
+			var len = str.length;
+			var j;
+			for(;i<len;i++){
+				if(str[i]=== splitBy){
+					arr[arr.length] = str.substring(j+1,i);
+					j = i;
+				}
+			}
+			arr[arr.length] = str.substring(j+1);
+				return arr;
+		}
+		console.log(split('holllllollllolll','o'));
+
+		//substring
+		function mySubstring(str,a,b){
+			var c;
+			if(typeof a !== 'number' || a !==NaN)a = parseInt(a)||0;
+			if(b!==undefined){
+				if(typeof b !== 'number')b = parseInt(b)||0;
+			}
+			if(a>=b){
+				c = a;
+				a = b;
+				b = c;
+			}
+			var len = str.length;
+			var _str = '';
+			for(var i=0;i<str.length;i++){
+				if(i===parseInt(b))break;
+				if(i>=parseInt(a)){
+					_str += str[i];
+				}
+			}
+			return _str;
+		}
+		console.log(mySubstring('1234567890',5,null));
+		str = '1234567890';
+		console.log(str.substring(5,null));
+	</script>
+</body>
+</html>

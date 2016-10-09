@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<span class="minute">00:00</span>
+	<input type="button" value="开始" />
+	<input type="button" value="暂停" />
+	<input type="button" value="结束" />
+	<script>
+		var minute = document.querySelector(".minute");
+		var start = document.getElementsByTagName("input")[0];
+		var stop = document.getElementsByTagName("input")[1];
+		var end = document.getElementsByTagName("input")[2];
+		var m=0,s=0,i=0;
+		start.onclick = function(){
+			if(i);
+			else{
+				i = 1;
+			time = setInterval(function(){
+				minute.innerText = gT(++s);
+			},1000);
+			}
+		}
+		stop.onclick = function(){
+			clearInterval(time);
+			i=0;
+		}
+		end.onclick = function(){
+			clearInterval(time);
+			s = 0;
+			minute.innerText = "00:00";
+			i=0;
+		}
+		function gT(s){
+				m = Math.floor(s / 60);
+				m = m < 10 ? "0" + m : m;
+				s = s % 60;
+				s = s < 10 ? "0" + s : s;
+				return m + ":" + s;
+			}
+	</script>
+</body>
+</html>

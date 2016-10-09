@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Animation</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.ball{
+			position: absolute;
+			top:20%;
+			left: 20%;
+			width: 50px;
+			height: 50px;
+			background-color: blue;
+			border-radius: 25px;
+			/*animation:screenRun 5s linear ;*/
+		}
+		.test{
+			width: 200px;
+			height: 200px;
+			background-color: black;
+		}
+		.center1{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			margin-top: -100px;
+			margin-left: -100px;
+		}
+		.center2{
+			/*水平方向缩放*/
+			/*transform:scaleX(2);*/
+			/*垂直方向缩放*/
+			/*transform:scaleY(2);*/
+			/*水平垂直方向缩放*/
+			/*transform:scale(2,.5);*/
+			/*水平方向移动*/
+			/*transform:translateX(100%);*/
+			/*垂直方向移动*/
+			/*transform:translateY(100px);*/
+			/*水平垂直方向缩放*/
+			/*transform:translate(100%,100px);*/
+			/*旋转*/
+			/*transform:rotate(45deg);*/
+
+		}
+		.center3{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform:translate(-50%,-50%);
+		}
+		.upAndDown{
+			animation:upAndDown 2s infinite;
+		}
+		@keyframes screenRun{
+			0%{
+				top: 20%;
+				left: 20%;
+				width: 50px;
+				background-color: red;
+			}
+			25%{
+				top: 20%;
+				left: 80%;
+				width: 100px;
+				background-color: orange;
+			}
+			50%{
+				top: 80%;
+				left: 80%;
+				width: 50px;
+				height: 100px;
+				background-color: yellow;
+			}
+			75%{
+				top: 80%;
+				left: 20%;
+				width: 100px;
+				height: 50px;
+				background-color: green;
+			}
+		}
+		@keyframes upAndDown{
+			10%{
+				top: 0;
+			}
+			20%{
+				top: 90%;
+			}
+			30%{
+				top: 0;
+			}
+			40%{
+				top: 90%;
+			}
+			50%{
+				top: 0;
+			}
+			60%{
+				top: 90%;
+			}
+			70%{
+				top: 0;
+			}
+			80%{
+				top: 90%;
+			}
+			90%{
+				top: 0;
+			}
+			100%{
+				top: 90%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="ball"></div>
+	<div class="test center3"></div>
+	<script>
+		var ball = document.querySelector(".ball");
+		ball.addEventListener("animationstart",function(e){
+			console.log(e);
+			console.log("动画开始");
+		},0);
+		ball.addEventListener("animationend",function(e){
+			console.log("动画结束");
+			ball.classList.add("upAndDown");
+		},0);
+	</script>
+</body>
+</html>

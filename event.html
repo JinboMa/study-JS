@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Event</title>
+	<style>
+		.laugh{
+			width: 200px;
+			height: 200px;
+			background-color: rgb(255,0,0);
+			overflow-y: scroll;
+		}
+		.word{
+			height: 600px;
+		}
+		textarea{
+			resize: none;
+		}
+		#grandpa{
+			position: absolute;
+			top: 0;
+			right: 50%;
+			width: 200px;
+			height: 200px;
+			background-color: red; 
+			animation:toTopThenToRight 5s cubic-bezier(.3,.2,.5,.8) forwards;
+		}
+		#father{
+			width: 100px;
+			height: 100px;
+			background-color: green;
+		}
+		#son{
+			background-color: blue;
+			width: 400px;
+			color: white;
+		}
+		@keyframes toTopThenToRight{
+			50%{
+				top:50%;
+				right: 0;
+			}
+			100%{
+				top:0;
+				right: 50%;
+				width: 300px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="laugh">
+		<div class="word">我是div，哈哈</div>
+	</div>
+	<input class="test" value="2333" />
+	<textarea></textarea>
+	<select>
+		<option value="ha">哈</option>
+		<option>哈哈</option>
+		<option>哈哈哈</option>
+	</select>
+	<!-- 没事少写href=""-->
+	<a class="anchor" href="http://www.baidu.com">我是a标签</a>
+	<div class="grandpa" id="grandpa">
+		<div class="father" id="father">
+			<div class="son" id="son">666</div>
+		</div>
+	</div>
+	<script>
+		var divLaugh = document.querySelector(".laugh");
+		//on*,事件的绑定
+		//鼠标移入,鼠标移入当前标签及所有子级时均会触发事件
+		divLaugh.onmouseover = function(){
+			console.log("onmouseover");
+		};
+		//鼠标移入2,鼠标但凡移入当前标签及其子集并且没离开当前标签，只触发一次事件
+		divLaugh.onmouseenter = function(){
+			console.log("onmouseenter");
+		};
+		//鼠标移动
+		divLaugh.onmousemove = function(){
+			console.log("onmousemove");
+		};
+		//鼠标按下(左键，右键，滚轮)
+		divLaugh.onmousedown = function(){
+			console.log("onmousedown");
+		};
+		//鼠标抬起(左键，右键，滚轮)
+		divLaugh.onmouseup = function(){
+			console.log("onmouseup");
+		};
+		//鼠标点击(左键，滚轮)
+		divLaugh.onclick = function(){
+			console.log("onclick");
+		};
+		//鼠标移出,鼠标移除当前标签及其子标签时均会触发
+		divLaugh.onmouseout = function(){
+			console.log("onmouseout");
+		};
+		//鼠标移出2,鼠标移除当前标签及其子标签时只会触发1次
+		divLaugh.onmouseleave = function(){
+			console.log("onmouseleave");
+		};
+		//鼠标滚轮滚动
+		divLaugh.onmousewheel = function(){
+			console.log("onmousewheel");
+		};
+		//鼠标滚轮滚动1(必须有滚动条)
+		divLaugh.onscroll = function(){
+			console.log("onscroll");
+		};
+		// 鼠标双击
+		divLaugh.ondblclick = function(){
+			console.log("ondoubleclick");
+		};
+
+
+		//键盘事件
+		var ipTest = document.querySelector(".test");
+		//键盘按下，没抬起一直激活
+		ipTest.onkeydown = function(){
+			console.log("keydown");
+		};
+		//键盘抬起
+		ipTest.onkeyup = function(){
+			console.log("keyup");
+		};
+
+
+		//输入框事件
+		//聚焦
+		ipTest.onfocus = function(){
+			console.log("focus");
+		};
+		//失焦
+		ipTest.onblur = function(){
+			console.log("onblur");
+		}
+		//值改变,onchange的前提是必须失焦并且值发生了改变，input值为string类型
+		ipTest.onchange = function(){
+			console.log("change");
+			console.log(ipTest.value);
+		}
+		console.log(ipTest.value);
+
+		//浏览器窗口
+		window.onresize = function(){
+			console.log("resize");
+		}
+
+		
+		// 下拉菜单
+		//值改变，select的onchange而不是option的onchange，获取值获取select的value而不是option的value，如果被选中的option标签没有value属性，则取这个option的innerText，否则取option的value
+		var slt = document.getElementsByTagName("select")[0];
+		slt.onchange = function(){
+			console.log("change");
+			console.log(slt.value);
+		};
+
+
+		//阻止浏览器默认事件
+		var anchor = document.querySelector(".anchor");
+		anchor.onclick = function(e){
+			// e为事件对象
+			e.preventDefault();//不支持IE
+			e.returnValue = false;//不支持火狐和IE
+			console.log(e);
+			console.log("click");
+		};
+	</script>
+	<script>
+		//on事件的触发是由事件捕获
+		var grandpa = document.querySelector(".grandpa"),
+			father = document.querySelector(".father"),
+			son = document.querySelector(".son");
+		// 	son.onmouseenter = function(){
+		// 		console.log("我是你儿子");
+		// 	};
+		// 	grandpa.onmouseenter = function(){
+		// 		console.log("我是你爷爷");
+		// 	};
+		// 	father.onmouseenter = function(){
+		// 		console.log("我是你爸爸");
+		// 	};
+			
+	</script>
+	<script>
+		//事件监听,事件名称没有on
+		//第三个参数为判断当前事件来源于冒泡还是捕获，如果为true则为捕获，如果为false则为冒泡
+		//
+		// son.addEventListener("mouseover",function(){
+		// 	console.log("我是你儿子冒泡");
+		// },0);
+		// son.addEventListener("mouseover",function(){
+		// 	console.log("我是你儿子捕获");
+		// },1);
+		// father.addEventListener("mouseover",function(){
+		// 	console.log("我是你爸爸冒泡");
+		// },0);
+		// father.addEventListener("mouseover",function(e){
+		// 	e.stopPropagation();
+		// 	console.log("我是你爸爸捕获");
+		// },1);
+		// grandpa.addEventListener("mouseover",function(){
+		// 	console.log("我是你爷爷冒泡");
+		// },0);
+		// grandpa.addEventListener("mouseover",function(){
+		// 	console.log("我是你爷爷捕获");
+		// },1);
+		// father.addEventListener("mouseover",function(e){
+		// 	console.log("我是你爸爸");
+		// 	e.stopPropagation();
+		// },1);
+	</script>
+	<script>
+		//事件冒泡
+		//触发一个标签的事件，事件会由当前标签开始冒泡，传导至window的同样事件
+		//以son的click事件为例，son的click如果以冒泡形式监听，则son的click首先触发，再触发father的click，再触发grandpa的click，再触发body的click，直到window的click被触发为止
+
+		//事件捕获
+		//触发一个标签的事件，事件会由window的同样事件开始捕获，传导至当前标签的事件
+		//以son的click事件为例，son的click如果以捕获形式监听，则window的click首先触发，再触发body的click，再触发grandpa的click，再触发father的click，最后son的click被触发为止
+	</script>
+</body>
+</html>

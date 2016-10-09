@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing:border-box;
+			font-family: Microsoft Yahei;
+		}
+		a{
+			text-decoration: none;
+			color: inherit;
+		}
+		/*public*/
+		.hidden{
+			display: none;
+		}
+		.page{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform:translate(-50%,-50%);
+			width: 320px;
+			height: 528px;
+			box-shadow: 0 0 4px 0 rgb(204,204,204);
+		}
+		.btn{
+			cursor: pointer;
+			text-align: center;
+			width: 120px;
+			height: 30px;
+		}
+		.btn-br{
+			border: 1px solid;
+			line-height: 28px;
+		}
+		.btn-bg{
+			line-height: 30px;
+		}
+		.dialog{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform:translate(-50%,-50%);
+			width: 300px;
+			height: 500px;
+			box-shadow: 0 0 4px 0 rgb(204,204,204);
+			background-color: rgba(255,255,255,.95);
+		}
+		.ipt-txt{
+			width: 160px;
+			height: 30px;
+			padding:0 8px;
+			line-height: 2;
+		}
+		/*index*/
+		.index{
+			background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1472188368859&di=cd8fc035fe2765f8d07262d06bd23e72&imgtype=jpg&src=http%3A%2F%2Fimg8.zol.com.cn%2Fbbs%2Fupload%2F19950%2F19949451.png);
+			background-size: 100% ,100%;
+		}
+		.index h1{
+			text-align: center;
+			color: #e4e4e4;
+			margin-bottom: 140px;
+			margin-top: 160px;
+		}
+		.index h1:after{
+			content: "V0.0.1";
+			font-size: 16px;
+			margin-left: 10px;
+		}
+		.index .btn-bg{
+			color: white;
+		}
+		.index .btn{
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		.index .btn-bg.start{
+			background-color: #006d00;
+			/*background-image: url(http://img.taopic.com/uploads/allimg/140703/240475-140F303092585.jpg);
+			background-position: 0 0;
+			background-size: 220%;*/
+		}
+		.index .btn-bg.setting{
+			background-color: #818181;
+		}
+		.index .btn-bg.end{
+			background-color: #a21b00;
+		}
+		.index .dialog{
+			text-align: center;
+		}
+		.index .dialog h2{
+			margin-top: 10px;
+			margin-bottom: 20px;
+		}
+		.index .dialog .ipt-txt{
+			margin-bottom: 10px;
+		}
+		.index .dialog .btn.sure{
+			display: block;
+			margin: 0 auto;
+			margin-top: 160px;
+			background-color: rgb(255,255,255);
+		}
+		.index .tip1{
+			margin-top: 40px;
+		}
+		.index .tip2{
+			margin-top: 20px;
+		}
+		/*loading*/
+		.loading{
+			background-color: black;
+		}
+		.loading .loadingTip{
+			font-size: 20px;
+			color: white;
+			text-align: center;
+			margin-top: 200px;
+		}
+		.loading .loadingText{
+			text-align: center;
+			margin-top: 150px;
+			margin-bottom: 10px;
+			color: white;
+		}
+		.loading .loadingText:after{
+			content: "%";
+		}
+		.loading .loadingBar{
+			width: 280px;
+			height: 20px;
+			border: 1px solid white;
+			margin: 0 auto;
+		}
+		.loading .loadingBar .progress{
+			width: 0;
+			height: 18px;
+			background-color: white;
+		}
+		/*main*/
+		.main{
+			background-color: white;
+		}
+		.main .header{
+			overflow: hidden;
+			padding: 20px;
+		}
+		.main .btn.back{
+			float: right;
+			display: block;
+			background-color: #818181;
+			color: white;
+		}
+		.main .btn.del{
+			float: left;
+			/*display: block;*/
+			background-color: red;
+			color: white;
+		}
+		.main .footer{
+			position: absolute;
+			bottom: 0;
+			width: inherit;
+			text-align: center;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-top: 1px solid #ccc;
+		}
+		.main .btn.start{
+			margin: 0 auto;
+			display: block;
+			background-color: #00ad00;
+			color: white;
+		}
+		.main .ipt-txt{
+			vertical-align: middle;
+			margin-top: 10px;
+		}
+		.main .btn.congrate,.main .btn.sorry{
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 10px;
+			color: white;
+		}
+		.main .btn.congrate{
+			background-color: #FFC125;
+		}
+		.main .btn.sorry{
+			background-color: #FF3030;
+		}
+		.main .container{
+			padding: 0;
+
+		}
+		.main .box{
+			width: 40px;
+			height: 40px;
+			display: inline-block;
+			background-color: #FFC125;
+			text-align: center;
+			line-height: 40px;
+			border: 1px solid #ccc;
+			color: white;
+			cursor: pointer;
+		}
+		.main .box:hover{
+			background-color: #FF7F24;
+		}
+		.main .change{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="all">
+	<div class="page index">
+		<h1>点名系统</h1>
+		<a class="btn btn-bg start">开始</a>
+		<a class="btn btn-bg setting">设置</a>
+		<a class="btn btn-bg end">结束</a>
+		<div class="dialog hidden">
+			<h2>设置</h2>
+			<input class="ipt-txt number" value="50" />
+			<input class="ipt-txt history" placeholder="历史记录" />
+			<p class="tip1">Tip:历史记录请用英文逗号隔开</p>
+			<p class="tip2">(例：1,3,5,7,9)</p>
+			<a class="btn btn-br sure">确定</a>
+		</div>
+	</div>
+	<div class="page loading hidden">
+		<p class="loadingTip">正在加载，请稍等</p>
+		<p class="loadingText">0</p>
+		<div class="loadingBar">
+			<div class="progress"></div>
+		</div>
+	</div>
+	<div class="page main hidden">
+		<div class="header">
+			<a class="btn btn-bg del hidden">删除</a>
+			<a class="btn btn-bg back">返回</a>
+		</div>
+		<div class="footer">
+			<a class="btn btn-bg start">开始</a>
+			<input class="ipt-txt congrateTxt" />
+			<a class="btn btn-bg congrate">恭喜</a>
+			<input class="ipt-txt sorryTxt" />
+			<a class="btn btn-bg sorry">遗憾</a>
+		</div>
+	</div>
+	</div>
+	<script>
+		function All(){
+			//工具
+			var qr = function(dom){
+			return document.querySelector(dom);
+			}
+			var qra = function(dom){
+			return document.querySelectorAll(dom);
+			}
+			var all = qr(".all"),
+			valueArr = [1,2,3,4,5,6,7,8,9,10];
+			function Index(){
+				var indexSetting = qr(".btn.setting"),
+					indexStart = qr(".index .start"),
+					indexEnd = qr(".index .btn.end");
+					//开始按钮
+					indexStart.onclick = function(){
+						Loading().loading.classList.remove("hidden");
+						Loading().Rate();
+						Dialog().setBox(valueArr);
+					}
+					//设置按钮
+					indexSetting.onclick = function(){
+						Dialog().dialog.classList.remove("hidden");
+						Dialog().dialogHistory.value ="";
+						Dialog().dialogNumber.value =50;
+					}
+					//结束按钮
+					indexEnd.onclick = function(){
+						all.parentNode.removeChild(all);
+					}
+				function Dialog(){
+					var dialog = qr(".dialog"),
+					dialogSure = qr(".btn.sure"),
+					dialogNumber = qr(".dialog .number"),
+					dialogHistory = qr(".dialog .history");
+					//确定按钮
+					dialogSure.onclick = function(){
+						dialog.classList.add("hidden");
+						valueArr = setValue();
+					}
+					// 设置传入参数
+					var setValue = function(){
+						if(dialogHistory.value){
+						var arr = setValue1(dialogHistory.value);
+					}else{
+						var arr =[];
+						for(var i =0;i<dialogNumber.value;i++)arr.push(i+1);
+					}
+					return arr;
+					}
+					var setValue1 = function(str){
+						str = str.replace(/\s/g,"").split(",").map(function(list){
+							return +list;
+						})
+						return str;
+					}
+					//设置传入参数的box
+					var setBox = function(arr){
+					var container = document.createElement("div");
+					container.className = "container";
+					Main().main.appendChild(container);
+					var len = arr.length;
+					for(var i=0;i<len;i++){
+						var box = document.createElement("div");
+						box.className = "box";
+						box.innerText = arr[i];
+						container.appendChild(box);
+					}
+					}
+					return {
+						setBox : setBox,
+						dialog : dialog,
+						dialogHistory : dialogHistory,
+						dialogNumber : dialogNumber
+					}
+				}
+				return {
+					Dialog : Dialog
+				}
+			}
+			function Loading(){
+				var loading = qr(".loading"),
+				loadingText = qr(".loadingText"),
+				loadingTip = qr(".loadingTip"),
+				progress = qr(".progress");
+				//改变进度条的方法
+				function Rate(){
+						var progressValue = 0,
+						progressTimer = setInterval(function(){
+							if(progressValue<100){
+								progressValue += Math.ceil(Math.random()*5);								progressValue = Math.min(100,progressValue);
+								loadingText.innerText = progressValue;
+								progress.style.width = progressValue +"%";
+								}
+							else{
+								loadingTip.innerText = "加载完毕！！！";
+								delayTimer = setTimeout(function(){
+									loading.classList.add("hidden");
+									progress.style.width = 0;
+									Main().main.classList.remove("hidden");
+									loadingTip.innerText = "正在加载，请稍等";
+									clearTimeout(delayTimer);
+								},500)
+								clearInterval(progressTimer);
+							}
+						},100);
+				}
+				return {
+					loading : loading,
+					Rate : Rate
+				}
+			}
+			function Main(){
+				var main = qr(".main"),
+					mainBack = qr(".main .btn.back"),
+					mainCongrate = qr(".main .btn.congrate"),
+					mainCongrateTxt = qr(".congrateTxt"),
+					mainSorry = qr(".main .btn.sorry"),
+					mainSorryTxt = qr(".sorryTxt"),
+					mainStart = qr(".main .start"),
+					boxs = qra(".box"),
+					contain = qr(".container"),
+					mainDel = qr(".main .del"),
+					i = 0;
+				//返回按钮
+				mainBack.onclick = function(){
+					main.classList.add("hidden");
+					contain.parentNode.removeChild(contain);
+				}
+				//恭喜按钮
+				mainCongrate.onclick = function(){
+					boxs = qra(".box");
+					congrateFun(mainCongrateTxt.value);
+					mainCongrateTxt.value = "";
+				}
+				var congrateFun = function(index){
+					len = boxs.length;
+					for(var i=0;i<len;i++){
+						if(boxs[i].innerText == index){
+							boxs[i].parentNode.removeChild(boxs[i]);
+						}
+					}
+				}
+				//抱歉按钮
+				mainSorry.onclick = function(){
+					sorryFun(mainSorryTxt.value);
+					mainSorryTxt.value = "";
+				}
+				var sorryFun = function(index){
+					var box = document.createElement("div");
+						box.className = "box";
+						box.innerText = index;
+						contain.appendChild(box);
+				}
+				//开始按钮
+				var setStart = function(){
+						var j = 0,a = 100,index = 0,duration = 100,
+						select = Math.floor(Math.random()*boxs.length+boxs.length);
+						_setInterval(function(){
+						if(i == boxs.length)i = 0;
+						if(i == 0)j = boxs.length-1;
+						else j = i-1;
+						boxs[j].classList.remove("change");
+						boxs[i++].classList.add("change");
+						},duration,index,select);
+					}
+				var _setInterval = function(callback,duration,index,select){
+						var setTime = setTimeout(function(){
+							clearTimeout(setTime);
+							callback();
+							if(index == select){
+								var stop = select-boxs.length,io=0;
+									var setStop = setInterval(function(){
+										boxs[i-1].classList.toggle("change");
+										if(io++ >6)clearInterval(setStop);
+									},400);
+								return;
+							}
+							else if(index >= select-Math.floor(boxs.length/2))duration+=20;
+							_setInterval(callback,duration,++index,select);
+						},duration);
+					}
+				mainStart.onclick = function(){
+					var change = qr(".change");
+					boxs = qra(".box");
+					if(change)change.classList.remove("change");
+					setStart();
+				}
+				//点击删除
+				var mainClick = function(){
+					boxs = qra(".box");
+					var len = boxs.length;
+					for(var i=0;i<len;i++){
+						boxs[i].onclick = function(){
+							mainDel.style.display = "block";
+							this.classList.toggle("change");
+							var change = qr(".change");
+							if(!change)mainDel.style.display = "none";
+						}
+					}
+				}
+				mainDel.onclick = function(){
+					boxs = qra(".box");
+					var changes = qra(".change"),
+						len = changes.length,
+						i = 0;
+					for(;i<len;i++)changes[i].parentNode.removeChild(changes[i]);
+						mainDel.style.display = "none";
+				}
+				if(contain){
+					contain.onmouseenter = function(){
+					mainClick();
+					}
+				}
+				return {
+					main : main
+				}
+			}
+			Index();
+			Loading();
+			Main();
+		}	
+		All();
+	</script>
+</body>
+</html>

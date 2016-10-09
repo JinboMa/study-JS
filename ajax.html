@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Ajax</title>
+</head>
+<body>
+	<input name="test" />
+	<!-- 表单内部才会被提交 -->
+	<!-- 同步提交表单 -->
+	<!-- form默认为get -->
+	<form method="post" action="http://www.ikindness.cn/api/test/signUp">
+		<!-- 其他没有value属性的标签内的所有value都不能被提交 -->
+		<p name="pa">132</p>
+		电话：(11位)<input name="tel" />
+		密码：(无空格)<input name="password" />
+		code:(手机号后六位)<input name="code" />
+		<select name="ahaha">
+			<option value="01a">一年级</option>
+			<option value="02b">二年级</option>
+			<option value="03c">三年级</option>
+		</select>
+		<input type="submit" />
+	</form>
+	<form method="get" action="http://www.ikindness.cn/api/test/get">
+		<select name="ahaha">
+			<option value="01a">一年级</option>
+			<option value="02b">二年级</option>
+			<option value="03c">三年级</option>
+		</select>
+		<input type="submit" />
+	</form>
+	<script>
+		function ajax(option){
+			//宿主对象 XMLHttpRequest
+			var xhr = new XMLHttpRequest(),
+				type = option.type,
+				data = option.data;
+			//readyState
+			//0 未打开请求
+			//1 请求打开
+			//2 请求发送成功
+			//3 服务端成功接收请求
+			//4 服务端响应成功
+			xhr.onreadystatechange = function(){
+				console.log(["未打开请求","请求打开","请求发送成功","服务端成功接收请求","服务端响应成功"][xhr.readyState]);
+				if(xhr.readyState === 4 && xhr.status === 200){
+					option.success(option.dataType === "json" ? JSON.parse(xhr.responseText) : xhr.responseText);
+				}
+			};
+			//打开请求
+			xhr.open(option.type,option.url + (type === "get" ? "?" + queryString(data) : ""),option.async);
+			//设置请求头
+			type === "post" && xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+			//发送请求
+			xhr.send(type === "post" ? queryString(data) : null);
+			
+			function queryString(data){
+			var str = "",
+			i;
+			for(i in data){
+				str += "&" + i + "=" + data[i];
+			}
+			return str.slice(1);
+		}
+		}
+
+
+		 ajax({
+			type : "get",
+			url : "http://www.ikindness.cn/api/test/get",
+			// data : {
+			// 	len : 2,
+			// 	a : 13
+			// },
+			dataType : "json",
+			async : 1,
+			success : function(data){
+				console.log(data);
+				data.data.forEach(function(item){
+					var dom = document.createElement("img");
+					dom.style.float = "left";
+					dom.style.width = "200px";
+					dom.style.height = "200px";
+					dom.style.marginLeft = "20px";
+					dom.setAttribute("src",item.imageUrl);
+					dom.name = item.name;
+					document.body.appendChild(dom);
+					dom.onclick = function(){
+						var _this = this;
+						ajax({
+							type : "get",
+							url : "http://www.ikindness.cn/api/test/message",
+							data : {
+								tel : 16666666666
+							},
+							dataType : "json",
+							async : 1,
+							success : function(data){
+								_this.onclick = function(){//事件重载性
+									console.log(data.data);
+								}
+							}
+						});
+					}
+				});
+			}
+		});
+
+		
+		// console.log(6);
+		// console.log(66);
+		// console.log(666);
+		// console.log(66666);
+		// console.log(6666);
+		// console.log(666);
+		// console.log(66);
+		// console.log(6);
+
+		console.log("________________________________________________");
+		//原始对象 Promise对象
+		// var promise = new Promise(function(resolve,reject){
+		// 	ajax({
+		// 		type : "get",
+		// 		url : "http://www.ikindness.cn/api/test/get",
+		// 		dataType : "json",
+		// 		success : function(data){
+		// 			console.log(data);
+		// 		}
+		// 	});
+		// });
+
+		// //原始方法 fetch
+		// fetch("http://www.ikindness.cn/api/test/get").then(function(res){
+		// 	return res.json();
+		// }).then(function(data){
+		// 	return fetch("http://www.ikindness.cn/api/test/get?len=2").then(function(res){
+		// 		return res.json();
+		// 	});	
+		// }).then(function(data){
+		// 	return fetch(`http://www.ikindness.cn/api/test/getProduct?sort=${data.data.length}`).then(function(res){
+		// 		return res.text();
+		// 	});
+		// }).then(function(data){
+		// 	document.write(data);
+		// });
+			
+	</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div>
+		<form>
+			<input />
+			<select>
+				<option></option>
+				<option></option>
+			</select>
+		</form>
+	</div>
+	<img src="" />
+	<img src="" />
+	<img src="" />
+	<img src="" />
+	<a href=""></a>
+	<a href="">
+		<img src="" />
+	</a>
+	<script>
+		var temp1;
+		function a(){
+			console.log("function a is called.");
+			if(temp1){
+				console.log(666);
+			}else{
+				temp1 = 1;
+				a();
+			}
+		}
+		a();
+		console.log("**************我是分割线****************");
+
+		var temp2 = 0;
+		function b(){
+			console.log("function b is called"+temp2+"times.");
+			if(temp2 <10){
+				temp2++;
+				b();
+			}else{
+				console.log(666);
+			}
+		}
+		b();
+		console.log("**************我是分割线****************");
+		var arr = [3,4,1,9,8,"asd",0,true,function(){},[]];
+		var i=0,len=arr.length;
+		console.log(arr,len);
+		function c(){
+			if(i<len){
+				console.log(arr[i++]);
+				c();
+			}else{
+				console.log(666);
+			}
+		}
+		c();
+		console.log("**************我是分割线****************");
+		var arr = ["10",["9",[8,"7",[7,[6,5,3,2,["5",[4,[3,[2,[1,[0]]]]]]]]]]];
+		// function d(_brr){
+		// 	if(typeof _brr[i]!=="object"&&_brr[i]!==undefined){
+		// 		console.log(_brr[i++]);
+		// 		d(_brr);
+		// 	}else{
+		// 		var index = i;
+		// 		i=0;
+		// 		if(_brr[index]==undefined);
+		// 		else d(_brr[index]);
+		// 	}
+		// }
+		function d(arr){
+			var _arr = [],
+			i = 0,
+			len = arr.length;
+			for(;i<len;i++){
+				if(typeof arr[i]!==undefined){
+					_arr.push(arr[i]);
+					_arr1 = d(arr[i]);
+					j = 0;
+					if(_arr1.length){
+						for(;j<_arr1.length;j++){
+							_arr.push(_arr1[j]);
+						}
+					}
+				}
+			}
+			return _arr;
+		}
+		console.log(d(arr));
+
+		function selectChildElements(element){
+			var result = [],
+			i = 0,
+			childNodes = element.childNodes,
+			len = childNodes.length;
+			for(;i<len;i++){
+				if(childNodes[i].nodeType === 1){
+					result.push(childNodes[i]);
+					_result = selectChildElements(childNodes[i]),
+					j = 0;
+					if(_result.length){
+						for(;j<_result.length;j++){
+							result.push(_result[j]);
+						}
+					}
+				}
+			}
+			return result;
+		}
+		console.log(selectChildElements(document.body));
+
+
+		//延时调用定时器
+		// var timer1 = setTimeout(function(){
+		// 	console.log(666);
+		// },1000);
+		// clearTimeout(timer1);
+		// var timer2 = setTimeout(function(){
+		// 	clearTimeout(timer2);
+		// 	clearTimeout(timer3);
+		// 	console.log(233);
+		// },1000);
+		// console.log(777);
+		// var timer3 = setTimeout(function(){
+		// 	clearTimeout(timer3);
+		// 	console.log(666);
+		// },999);
+
+
+		//定时调用定时器
+		// var temp3 = 0;
+		// var timer4 = setInterval(function(){
+		// 	temp3++;
+		// 	if(temp3>100)clearInterval(timer4);
+		// 	else console.log(temp3);
+		// },100);
+
+		//利用递归与延时定时器做定时调用定时器
+		function _setInterval(callback,duration){
+			var timer = setTimeout(function(){
+				clearTimeout(timer);
+				callback();
+				_setInterval(callback,duration);
+			},duration);
+		}
+		_setInterval(function(){
+			console.log(666);
+		},100);
+	</script>
+</body>
+</html>
